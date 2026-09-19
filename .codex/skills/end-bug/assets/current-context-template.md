@@ -3,3 +3,5 @@
 # Plans
 
 # Notes
+
+# Current bug status
