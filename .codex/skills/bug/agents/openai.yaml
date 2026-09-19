@@ -1,4 +1,4 @@
 interface:
-  display_name: "Bugs"
+  display_name: "Bug"
   short_description: "Diagnostiquer et planifier un correctif"
   default_prompt: "Analyse ce bug, mets à jour son statut dans context/current-context.md et propose un plan de correction sans modifier le code."

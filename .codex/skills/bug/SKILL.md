@@ -1,5 +1,5 @@
 ---
-name: bugs
+name: bug
 description: Rechercher, diagnostiquer et planifier la correction d'un bug de ce dépôt, en tenant à jour son statut dans context/current-context.md; implémenter la correction seulement sur demande explicite.
 ---
 
