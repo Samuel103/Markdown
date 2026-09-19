@@ -25,11 +25,11 @@ npm run dev
 
 ## Acceptance Criteria
 
-- [ ] Le projet démarre sans erreur.
-- [ ] React fonctionne.
-- [ ] TypeScript fonctionne.
-- [ ] Vite est utilisé.
-- [ ] Aucun contenu de démonstration Vite inutile ne reste.
+- [x] Le projet démarre sans erreur.
+- [x] React fonctionne.
+- [x] TypeScript fonctionne.
+- [x] Vite est utilisé.
+- [x] Aucun contenu de démonstration Vite inutile ne reste.
 
 ## Depends On
 

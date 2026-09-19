@@ -21,10 +21,10 @@ npm install tailwindcss @tailwindcss/vite
 
 ## Acceptance Criteria
 
-- [ ] Tailwind est installé.
-- [ ] Le plugin Vite est configuré.
-- [ ] `@import "tailwindcss";` est présent.
-- [ ] Une classe Tailwind modifie correctement l'interface.
+- [x] Tailwind est installé.
+- [x] Le plugin Vite est configuré.
+- [x] `@import "tailwindcss";` est présent.
+- [x] Une classe Tailwind modifie correctement l'interface.
 
 ## Depends On
 
