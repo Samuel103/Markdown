@@ -39,11 +39,11 @@ src/
 
 ## Acceptance Criteria
 
-- [ ] La toolbar est visible.
-- [ ] L'éditeur est visible.
-- [ ] La preview est visible.
-- [ ] Les deux panneaux sont côte à côte sur desktop.
-- [ ] L'application occupe toute la hauteur disponible.
+- [x] La toolbar est visible.
+- [x] L'éditeur est visible.
+- [x] La preview est visible.
+- [x] Les deux panneaux sont côte à côte sur desktop.
+- [x] L'application occupe toute la hauteur disponible.
 
 ## Depends On
 
