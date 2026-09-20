@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 type MarkdownPreviewProps = {
   markdown: string
@@ -11,7 +12,7 @@ function MarkdownPreview({ markdown }: MarkdownPreviewProps) {
         Preview
       </h2>
       <div className="mt-4">
-        <ReactMarkdown>{markdown}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
       </div>
     </section>
   )

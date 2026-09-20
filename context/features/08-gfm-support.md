@@ -34,10 +34,10 @@ npm install remark-gfm
 
 ## Acceptance Criteria
 
-- [ ] Les tables fonctionnent.
-- [ ] Les checkboxes fonctionnent.
-- [ ] Le strikethrough fonctionne.
-- [ ] Les autolinks fonctionnent.
+- [x] Les tables fonctionnent.
+- [x] Les checkboxes fonctionnent.
+- [x] Le strikethrough fonctionne.
+- [x] Les autolinks fonctionnent.
 
 ## Depends On
 
