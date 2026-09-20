@@ -1,4 +1,12 @@
-function MarkdownEditor() {
+type MarkdownEditorProps = {
+  value: string
+  onChange: (value: string) => void
+}
+
+function MarkdownEditor({ value, onChange }: MarkdownEditorProps) {
+  void value
+  void onChange
+
   return (
     <section
       aria-labelledby="editor-heading"
