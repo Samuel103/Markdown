@@ -21,11 +21,11 @@ npm install react-markdown
 
 ## Acceptance Criteria
 
-- [ ] Les titres sont rendus.
-- [ ] Les paragraphes sont rendus.
-- [ ] Les listes sont rendues.
-- [ ] La preview se met à jour immédiatement.
-- [ ] Aucun state Markdown séparé n'est créé dans la preview.
+- [x] Les titres sont rendus.
+- [x] Les paragraphes sont rendus.
+- [x] Les listes sont rendues.
+- [x] La preview se met à jour immédiatement.
+- [x] Aucun state Markdown séparé n'est créé dans la preview.
 
 ## Depends On
 
