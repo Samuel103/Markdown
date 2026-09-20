@@ -1,21 +1,33 @@
+import CodeMirror from '@uiw/react-codemirror'
+import { markdown } from '@codemirror/lang-markdown'
+
 type MarkdownEditorProps = {
   value: string
   onChange: (value: string) => void
 }
 
 function MarkdownEditor({ value, onChange }: MarkdownEditorProps) {
-  void value
-  void onChange
-
   return (
     <section
       aria-labelledby="editor-heading"
-      className="min-w-0 border-r border-slate-200 bg-white p-6"
+      className="flex min-h-0 min-w-0 flex-col border-r border-slate-200 bg-white p-6"
     >
       <h2 id="editor-heading" className="text-sm font-semibold text-slate-700">
         Editor
       </h2>
-      <p className="mt-4 text-sm text-slate-500">Markdown editor placeholder</p>
+      <CodeMirror
+        value={value}
+        height="100%"
+        extensions={[markdown()]}
+        basicSetup={{
+          lineNumbers: false,
+          foldGutter: false,
+          autocompletion: false,
+          searchKeymap: false,
+        }}
+        onChange={onChange}
+        className="mt-4 min-h-0 flex-1 [&_.cm-editor]:h-full [&_.cm-scroller]:overflow-auto"
+      />
     </section>
   )
 }
