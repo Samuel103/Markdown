@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+:root {
+  --editor-surface: #ffffff;
+  --editor-text: #1e293b;
+  --editor-muted-text: #64748b;
+}
+
 body {
   margin: 0;
 }
@@ -8,4 +14,39 @@ html,
 body,
 #root {
   min-height: 100%;
+}
+
+.markdown-editor .cm-editor {
+  height: 100%;
+  border: 0;
+  background: var(--editor-surface);
+  color: var(--editor-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.markdown-editor .cm-editor.cm-focused {
+  outline: none;
+}
+
+.markdown-editor .cm-scroller {
+  overflow: auto;
+  font-family: inherit;
+}
+
+.markdown-editor .cm-content {
+  padding: 0.75rem 0 2rem;
+}
+
+.markdown-editor .cm-activeLine,
+.markdown-editor .cm-activeLineGutter {
+  background: transparent;
+}
+
+.markdown-editor .cm-gutters {
+  border: 0;
+  background: transparent;
+  color: var(--editor-muted-text);
 }

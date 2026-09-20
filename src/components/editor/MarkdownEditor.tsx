@@ -26,7 +26,7 @@ function MarkdownEditor({ value, onChange }: MarkdownEditorProps) {
           searchKeymap: false,
         }}
         onChange={onChange}
-        className="mt-4 min-h-0 flex-1 [&_.cm-editor]:h-full [&_.cm-scroller]:overflow-auto"
+        className="markdown-editor mt-4 min-h-0 flex-1"
       />
     </section>
   )

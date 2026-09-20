@@ -16,11 +16,11 @@ Améliorer la lisibilité et l'ergonomie de CodeMirror.
 
 ## Acceptance Criteria
 
-- [ ] L'éditeur est lisible.
-- [ ] Le focus est visible.
-- [ ] Le texte n'est pas collé aux bords.
-- [ ] Le layout ne bouge pas pendant la saisie.
-- [ ] Le composant est prêt à recevoir un thème.
+- [x] L'éditeur est lisible.
+- [x] Le focus est visible.
+- [x] Le texte n'est pas collé aux bords.
+- [x] Le layout ne bouge pas pendant la saisie.
+- [x] Le composant est prêt à recevoir un thème.
 
 ## Depends On
 
