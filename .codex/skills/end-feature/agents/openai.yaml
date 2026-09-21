@@ -1,6 +1,0 @@
-interface:
-  display_name: "end-feature"
-  short_description: "Review, secure, commit and merge a feature"
-  default_prompt: "Use $end-feature to review the uncommitted feature work, fix approved findings, then commit and merge it."
-policy:
-  allow_implicit_invocation: false

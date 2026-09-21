@@ -1,6 +1,0 @@
-interface:
-  display_name: "implement"
-  short_description: "Implement the planned current feature"
-  default_prompt: "Use $implement to implement the current feature."
-policy:
-  allow_implicit_invocation: false

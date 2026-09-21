@@ -16,7 +16,7 @@ Commandes utiles :
 ```bash
 npm run lint
 npm run build
-npm run start
+npm run preview
 ```
 
 ## Workflow IA
@@ -26,27 +26,27 @@ Le dépôt utilise `context/current-context.md` comme mémoire de travail : il c
 ### Vue d'ensemble
 
 ```text
-Nouvelle fonctionnalité : /feature → /implement → /end-feature
+Nouvelle fonctionnalité : /feature load <fichier> → /feature implement → /feature end
 Correction de bug       : /bug     → accord explicite pour corriger → /end-bug
 ```
 
-### `/feature`
+### `/feature load <fichier>`
 
 À utiliser lorsqu'une nouvelle fonctionnalité est décrite dans un document Markdown.
 
 Cette commande lit le document, le contexte du projet et le code pertinent. Elle ajoute ensuite un résumé de la fonctionnalité dans `context/current-context.md`, puis propose un plan détaillé dans la conversation (fichiers concernés, comportement, validation, risques et questions ouvertes). Elle ne modifie pas le code.
 
-Le plan est discuté et ajusté avec vous. Seulement après votre validation explicite, il est enregistré dans la section `# Plans` du fichier de contexte et une branche de fonctionnalité est créée. La commande s'arrête alors : utilisez `/implement` pour commencer le développement.
+Le plan est discuté et ajusté avec vous. Seulement après votre validation explicite, il est enregistré dans la section `# Plans` du fichier de contexte et une branche de fonctionnalité est créée. La commande s'arrête alors : utilisez `/feature implement` pour commencer le développement.
 
-### `/implement`
+### `/feature implement`
 
-À utiliser après qu'un objectif clair et, idéalement, un plan validé ont été préparés avec `/feature`.
+À utiliser après qu'un objectif clair et, idéalement, un plan validé ont été préparés avec `/feature load`.
 
 L'IA relit les règles du dépôt et `context/current-context.md`, vérifie que le besoin est suffisamment précis, puis implémente uniquement la fonctionnalité documentée. Elle préserve les modifications sans rapport et exécute les vérifications adaptées, par exemple le lint ou le build. Elle résume ensuite le résultat et peut itérer sur vos retours.
 
 Si une exigence importante est ambiguë ou absente, elle demande une décision avant de modifier le code.
 
-### `/end-feature`
+### `/feature end`
 
 À utiliser lorsque la fonctionnalité est terminée et que vous souhaitez la clôturer localement.
 
@@ -75,4 +75,4 @@ Quand tout est valide, elle réinitialise le fichier de contexte depuis son mod�
 - Le contexte et le plan guident les changements : l'IA ne doit pas implémenter une fonctionnalité non documentée.
 - Les modifications existantes sans rapport sont préservées ; aucune commande du workflow ne doit les écraser, les supprimer ou les mettre de côté.
 - Les étapes de clôture effectuent une revue avant le commit et n'appliquent pas de correction signalée sans votre validation.
-- `/end-feature` reste local, tandis que `/end-bug` effectue aussi le push de `main` après une finalisation réussie.
+- `/feature end` reste local, tandis que `/end-bug` effectue aussi le push de `main` après une finalisation réussie.

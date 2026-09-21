@@ -1,11 +1,11 @@
 ---
-name: implement
-description: "Implement the current repository feature from context/current-feature.md and refine it collaboratively through feedback."
+name: feature-implement
+description: "Implement the current repository feature from context/current-context.md and refine it collaboratively through feedback."
 ---
 
 # Implement
 
-Use this skill when the user invokes `/implement` to build the feature documented in `context/current-feature.md`.
+Use these instructions when the user invokes `/feature implement` to build the feature documented in `context/current-context.md`.
 
 ## Workflow
 

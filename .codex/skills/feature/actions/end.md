@@ -1,11 +1,11 @@
 ---
-name: end-feature
+name: feature-end
 description: Review uncommitted feature work, remediate approved findings, then finalize it on main.
 ---
 
 # End feature
 
-Use this skill when the user invokes `/end-feature` to close the feature currently being worked on in this repository. It reviews only uncommitted work; it does not push to a remote.
+Use these instructions when the user invokes `/feature end` to close the feature currently being worked on in this repository. It reviews only uncommitted work; it does not push to a remote.
 
 ## Review
 
@@ -25,10 +25,10 @@ After approval, apply only the approved corrections, rerun the relevant checks, 
 
 Once the review is clear:
 
-1. Restore `context/current-context.md` exactly from [the bundled template](assets/current-feature-template.md).
-2. Find the current feature we working on in `context/features` folder and put an x in the completed acceptance criteria.
-2. Confirm the final staged/unstaged diff contains only the reviewed feature work and that Git has an author identity available. Stage the reviewed changes, including the restored context file, and create one commit with a concise conventional message that describes the feature. Never amend or rewrite existing commits.
-3. Merge that feature branch into local `main` with a non-destructive merge. If already on `main`, commit there and state that no merge was needed. Do not push, force-push, rebase, resolve merge conflicts automatically, or overwrite a branch. Stop and ask the user if a merge conflict, missing Git identity, protected branch, or other Git error requires a decision.
-4. Verify the resulting local `main` status and summarize the review, security checks, validation, commit hash, and merge outcome.
+1. Restore `context/current-context.md` exactly from [the bundled template](../assets/current-context-template.md).
+2. Find the current feature in `context/features` and mark its completed acceptance criteria with `x`.
+3. Confirm the final staged/unstaged diff contains only the reviewed feature work and that Git has an author identity available. Stage the reviewed changes, including the restored context file, and create one commit with a concise conventional message that describes the feature. Never amend or rewrite existing commits.
+4. Merge that feature branch into local `main` with a non-destructive merge. If already on `main`, commit there and state that no merge was needed. Do not push, force-push, rebase, resolve merge conflicts automatically, or overwrite a branch. Stop and ask the user if a merge conflict, missing Git identity, protected branch, or other Git error requires a decision.
+5. Verify the resulting local `main` status and summarize the review, security checks, validation, commit hash, and merge outcome.
 
-The reset of `context/current-context.md`, commit, and local merge are part of this explicit `/end-feature` workflow. Ask again before any action beyond them, especially a remote push or changes outside the reviewed work.
+The reset of `context/current-context.md`, commit, and local merge are part of this explicit `/feature end` workflow. Ask again before any action beyond them, especially a remote push or changes outside the reviewed work.
