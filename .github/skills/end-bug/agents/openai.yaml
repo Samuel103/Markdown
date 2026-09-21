@@ -1,6 +1,0 @@
-interface:
-  display_name: "end-bug"
-  short_description: "Review, approve fixes, and ship a bugfix"
-  default_prompt: "Use $end-bug to review the current bugfix, present findings for approval, then commit and push main when clear."
-policy:
-  allow_implicit_invocation: false

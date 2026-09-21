@@ -1,4 +1,4 @@
 interface:
   display_name: "Bug"
-  short_description: "Diagnostiquer et planifier un correctif"
-  default_prompt: "Analyse ce bug, mets à jour son statut dans context/current-context.md et propose un plan de correction sans modifier le code."
+  short_description: "Diagnose, fix, or finalize a bug"
+  default_prompt: "Use $bug investigate <description> to diagnose a bug, or $bug end to review and finalize the current bugfix."
