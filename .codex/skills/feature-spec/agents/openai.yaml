@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature Spec"
+  short_description: "Create numbered feature specifications"
+  default_prompt: "Use $feature-spec to create a feature specification for recent files."
