@@ -3,29 +3,6 @@ enabled = true
 max_concurrent_threads_per_session = 4
 
 [agents.reuse-scout]
-description = """
-Read-only TypeScript and React repository scout. Use it before new shared code
-is implemented to find existing implementations and duplication risks.
-
-Use this agent whenever the task may introduce:
-- a function
-- helper
-- component
-- hook
-- shared state or effect pattern
-- event handler or asynchronous request pattern
-- CSS/Tailwind pattern or design token
-- utility
-- mapper
-- validator
-- API client
-- type, interface, schema, or domain model
-- context provider, reducer, or abstraction
-
-Its job is only to search, compare, and report evidence. The parent agent
-decides whether to reuse, extend, or create code and performs all changes.
-
-This agent must never modify files.
-"""
+description = "Read-only React/TypeScript scout for reusable code; use before creating a shared abstraction."
 
 config_file = "agents/reuse-scout.toml"

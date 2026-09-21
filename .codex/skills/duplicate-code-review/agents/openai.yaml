@@ -1,6 +1,0 @@
-interface:
-  display_name: "Duplicate code review"
-  short_description: "Find reusable code before it is duplicated"
-  default_prompt: "Use $duplicate-code-review to check my planned change for existing implementations."
-policy:
-  allow_implicit_invocation: true
