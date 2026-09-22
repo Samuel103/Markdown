@@ -24,10 +24,10 @@ export type MarkdownDocument = {
 
 ## Acceptance Criteria
 
-- [ ] Le type `MarkdownDocument` existe.
-- [ ] Le document courant est stocké dans un state.
-- [ ] Le contenu de l'éditeur provient du document courant.
-- [ ] Le modèle est réutilisable pour la version Tauri.
+- [x] Le type `MarkdownDocument` existe.
+- [x] Le document courant est stocké dans un state.
+- [x] Le contenu de l'éditeur provient du document courant.
+- [x] Le modèle est réutilisable pour la version Tauri.
 
 ## Depends On
 
