@@ -24,6 +24,7 @@ function MarkdownEditor({ value, onChange }: MarkdownEditorProps) {
           foldGutter: false,
           autocompletion: false,
           searchKeymap: false,
+          syntaxHighlighting: false,
         }}
         onChange={onChange}
         className="markdown-editor mt-4 min-h-0 flex-1"
