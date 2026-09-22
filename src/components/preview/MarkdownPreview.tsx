@@ -4,13 +4,14 @@ import remarkGfm from 'remark-gfm'
 type MarkdownPreviewProps = {
   markdown: string
   theme: 'light' | 'dark'
+  isActive: boolean
 }
 
-function MarkdownPreview({ markdown, theme }: MarkdownPreviewProps) {
+function MarkdownPreview({ markdown, theme, isActive }: MarkdownPreviewProps) {
   return (
     <section
       aria-labelledby="preview-heading"
-      className="flex min-h-0 min-w-0 flex-col bg-slate-50 p-6 dark:bg-slate-950"
+      className={`${isActive ? 'flex' : 'hidden'} min-h-0 min-w-0 flex-col bg-slate-50 p-4 dark:bg-slate-950 md:flex md:p-6`}
     >
       <h2 id="preview-heading" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
         Preview

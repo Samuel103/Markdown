@@ -7,6 +7,7 @@ import useKeyboardShortcuts from '../hooks/useKeyboardShortcuts'
 import type { MarkdownDocument } from '../types/document'
 
 type Theme = 'light' | 'dark'
+type ActivePane = 'editor' | 'preview'
 
 const themeStorageKey = 'markdown-editor-theme'
 
@@ -32,6 +33,7 @@ function EditorPage() {
   const discardButtonRef = useRef<HTMLButtonElement>(null)
   const [pendingAction, setPendingAction] = useState<'new' | 'open' | null>(null)
   const [theme, setTheme] = useState<Theme>(() => getStoredTheme() ?? getSystemTheme())
+  const [activePane, setActivePane] = useState<ActivePane>('editor')
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
@@ -228,9 +230,43 @@ function EditorPage() {
         theme={theme}
       />
       <input ref={fileInputRef} type="file" accept=".md,.markdown" onChange={handleFileChange} className="hidden" />
-      <main className="grid min-h-0 flex-1 grid-cols-2">
-        <MarkdownEditor ref={editorRef} value={currentDocument.content} onChange={handleContentChange} theme={theme} />
-        <MarkdownPreview markdown={currentDocument.content} theme={theme} />
+      <div className="border-b border-slate-200 bg-white px-4 py-2 dark:border-slate-800 dark:bg-slate-900 md:hidden" role="group" aria-label="Visible pane">
+        <div className="grid grid-cols-2 rounded-md bg-slate-100 p-1 dark:bg-slate-800">
+          <button
+            type="button"
+            aria-pressed={activePane === 'editor'}
+            onClick={() => setActivePane('editor')}
+            className={`rounded px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${
+              activePane === 'editor'
+                ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+                : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100'
+            }`}
+          >
+            Editor
+          </button>
+          <button
+            type="button"
+            aria-pressed={activePane === 'preview'}
+            onClick={() => setActivePane('preview')}
+            className={`rounded px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${
+              activePane === 'preview'
+                ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+                : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100'
+            }`}
+          >
+            Preview
+          </button>
+        </div>
+      </div>
+      <main className="grid min-h-0 flex-1 overflow-hidden md:grid-cols-2">
+        <MarkdownEditor
+          ref={editorRef}
+          value={currentDocument.content}
+          onChange={handleContentChange}
+          theme={theme}
+          isActive={activePane === 'editor'}
+        />
+        <MarkdownPreview markdown={currentDocument.content} theme={theme} isActive={activePane === 'preview'} />
       </main>
       {pendingAction && (
         <div className="fixed inset-0 flex items-center justify-center bg-slate-950/40 p-4" role="presentation">

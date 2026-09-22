@@ -6,16 +6,17 @@ type MarkdownEditorProps = {
   value: string
   onChange: (value: string) => void
   theme: 'light' | 'dark'
+  isActive: boolean
 }
 
 const MarkdownEditor = forwardRef<ReactCodeMirrorRef, MarkdownEditorProps>(function MarkdownEditor(
-  { value, onChange, theme },
+  { value, onChange, theme, isActive },
   ref,
 ) {
   return (
     <section
       aria-labelledby="editor-heading"
-      className="flex min-h-0 min-w-0 flex-col border-r border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900"
+      className={`${isActive ? 'flex' : 'hidden'} min-h-0 min-w-0 flex-col bg-white p-4 dark:bg-slate-900 md:flex md:border-r md:border-slate-200 md:p-6 md:dark:border-slate-800`}
     >
       <h2 id="editor-heading" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
         Editor

@@ -11,11 +11,11 @@ type ToolbarProps = {
 
 function Toolbar({ fileName, isDirty, onNew, onOpen, onSave, onSaveAs, onToggleTheme, theme }: ToolbarProps) {
   return (
-    <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4 dark:border-slate-800 dark:bg-slate-900">
-      <h1 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+    <header className="flex flex-col gap-3 border-b border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900 md:flex-row md:items-center md:justify-between md:px-6 md:py-4">
+      <h1 className="min-w-0 truncate text-lg font-semibold text-slate-900 dark:text-slate-100">
         Markdown Editor <span aria-label={isDirty ? `${fileName}, unsaved changes` : fileName}>{fileName}{isDirty && <span aria-hidden="true">*</span>}</span>
       </h1>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <button
           type="button"
           onClick={onNew}

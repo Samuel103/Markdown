@@ -31,11 +31,11 @@ Editor | Preview
 
 ## Acceptance Criteria
 
-- [ ] Desktop affiche deux panneaux.
-- [ ] Mobile affiche un seul panneau.
-- [ ] Le changement Editor/Preview fonctionne.
-- [ ] Aucun contenu important ne déborde.
-- [ ] L'application reste utilisable sur téléphone/tablette.
+- [x] Desktop affiche deux panneaux.
+- [x] Mobile affiche un seul panneau.
+- [x] Le changement Editor/Preview fonctionne.
+- [x] Aucun contenu important ne déborde.
+- [x] L'application reste utilisable sur téléphone/tablette.
 
 ## Depends On
 
