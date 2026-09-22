@@ -26,10 +26,10 @@ export type MarkdownDocument = {
 
 ## Acceptance Criteria
 
-- [ ] Un dialog natif s'ouvre.
-- [ ] Le fichier est lu depuis son chemin réel.
-- [ ] Le path est conservé.
-- [ ] Les erreurs sont affichées proprement.
+- [x] Un dialog natif s'ouvre.
+- [x] Le fichier est lu depuis son chemin réel.
+- [x] Le path est conservé.
+- [x] Les erreurs sont affichées proprement.
 
 ## Depends On
 

@@ -1,5 +1,10 @@
 import { type ChangeEvent, useEffect, useRef, useState } from 'react'
 import type { ReactCodeMirrorRef } from '@uiw/react-codemirror'
+import { isTauri } from '@tauri-apps/api/core'
+import { basename } from '@tauri-apps/api/path'
+import { getCurrentWindow } from '@tauri-apps/api/window'
+import { open, save } from '@tauri-apps/plugin-dialog'
+import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs'
 import MarkdownEditor from '../components/editor/MarkdownEditor'
 import MarkdownPreview from '../components/preview/MarkdownPreview'
 import StatusBar from '../components/status-bar/StatusBar'
@@ -11,6 +16,8 @@ type Theme = 'light' | 'dark'
 type ActivePane = 'editor' | 'preview'
 
 const themeStorageKey = 'markdown-editor-theme'
+const markdownFileFilter = [{ name: 'Markdown', extensions: ['md', 'markdown'] }]
+const applicationTitle = 'Markdown Editor'
 
 function getStoredTheme(): Theme | null {
   const storedTheme = window.localStorage.getItem(themeStorageKey)
@@ -35,6 +42,7 @@ function EditorPage() {
   const [pendingAction, setPendingAction] = useState<'new' | 'open' | null>(null)
   const [theme, setTheme] = useState<Theme>(() => getStoredTheme() ?? getSystemTheme())
   const [activePane, setActivePane] = useState<ActivePane>('editor')
+  const [fileError, setFileError] = useState<string | null>(null)
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
@@ -64,6 +72,16 @@ function EditorPage() {
 
     return () => window.removeEventListener('beforeunload', handleBeforeUnload)
   }, [currentDocument.isDirty])
+
+  useEffect(() => {
+    const title = `${currentDocument.fileName}${currentDocument.isDirty ? ' *' : ''} — ${applicationTitle}`
+
+    document.title = title
+
+    if (isTauri()) {
+      void getCurrentWindow().setTitle(title).catch(() => undefined)
+    }
+  }, [currentDocument.fileName, currentDocument.isDirty])
 
   useEffect(() => {
     if (!pendingAction) {
@@ -112,6 +130,7 @@ function EditorPage() {
   }
 
   function createNewDocument() {
+    setFileError(null)
     setCurrentDocument({
       fileName: 'untitled.md',
       content: '',
@@ -121,7 +140,39 @@ function EditorPage() {
   }
 
   function openDocument() {
+    setFileError(null)
+
+    if (isTauri()) {
+      void openNativeDocument()
+      return
+    }
+
     fileInputRef.current?.click()
+  }
+
+  async function openNativeDocument() {
+    try {
+      const filePath = await open({
+        title: 'Open a Markdown file',
+        multiple: false,
+        filters: markdownFileFilter,
+      })
+
+      if (!filePath) {
+        return
+      }
+
+      const [content, fileName] = await Promise.all([readTextFile(filePath), basename(filePath)])
+
+      setCurrentDocument({
+        fileName,
+        filePath,
+        content,
+        isDirty: false,
+      })
+    } catch {
+      setFileError('Unable to open this file. Check that it still exists and that you have permission to read it.')
+    }
   }
 
   function handleNewDocument() {
@@ -152,7 +203,18 @@ function EditorPage() {
     setPendingAction(null)
   }
 
-  function handleSaveDocument(fileName = currentDocument.fileName) {
+  async function handleSaveDocument() {
+    setFileError(null)
+
+    if (isTauri()) {
+      await saveNativeDocument(currentDocument.filePath)
+      return
+    }
+
+    downloadDocument(currentDocument.fileName)
+  }
+
+  function downloadDocument(fileName: string) {
     const blob = new Blob([currentDocument.content], { type: 'text/markdown' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
@@ -171,7 +233,49 @@ function EditorPage() {
     }))
   }
 
+  async function saveNativeDocument(existingFilePath?: string) {
+    try {
+      let filePath = existingFilePath
+
+      if (!filePath) {
+        const selectedPath = await save({
+          title: 'Save Markdown file',
+          defaultPath: currentDocument.fileName,
+          filters: markdownFileFilter,
+        })
+
+        if (!selectedPath) {
+          return
+        }
+
+        filePath = selectedPath.toLowerCase().endsWith('.md') || selectedPath.toLowerCase().endsWith('.markdown')
+          ? selectedPath
+          : `${selectedPath}.md`
+      }
+
+      const fileName = await basename(filePath)
+
+      await writeTextFile(filePath, currentDocument.content)
+
+      setCurrentDocument((document) => ({
+        ...document,
+        fileName,
+        filePath,
+        isDirty: false,
+      }))
+    } catch {
+      setFileError('Unable to save this file. Check that it has not been deleted and that you have permission to write to it.')
+    }
+  }
+
   function handleSaveAs() {
+    setFileError(null)
+
+    if (isTauri()) {
+      void saveNativeDocument()
+      return
+    }
+
     const requestedFileName = window.prompt('Enter a file name', currentDocument.fileName)?.trim()
 
     if (!requestedFileName) {
@@ -180,7 +284,7 @@ function EditorPage() {
 
     const fileName = requestedFileName.toLowerCase().endsWith('.md') ? requestedFileName : `${requestedFileName}.md`
 
-    handleSaveDocument(fileName)
+    downloadDocument(fileName)
   }
 
   function handleToggleTheme() {
@@ -199,13 +303,17 @@ function EditorPage() {
       return
     }
 
-    const content = await file.text()
+    try {
+      const content = await file.text()
 
-    setCurrentDocument({
-      fileName: file.name,
-      content,
-      isDirty: false,
-    })
+      setCurrentDocument({
+        fileName: file.name,
+        content,
+        isDirty: false,
+      })
+    } catch {
+      setFileError('Unable to open this file.')
+    }
   }
 
   useKeyboardShortcuts(
@@ -231,6 +339,11 @@ function EditorPage() {
         theme={theme}
       />
       <input ref={fileInputRef} type="file" accept=".md,.markdown" onChange={handleFileChange} className="hidden" />
+      {fileError && (
+        <p role="alert" className="border-b border-red-200 bg-red-50 px-4 py-2 text-sm text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200">
+          {fileError}
+        </p>
+      )}
       <div className="border-b border-slate-200 bg-white px-4 py-2 dark:border-slate-800 dark:bg-slate-900 md:hidden" role="group" aria-label="Visible pane">
         <div className="grid grid-cols-2 rounded-md bg-slate-100 p-1 dark:bg-slate-800">
           <button

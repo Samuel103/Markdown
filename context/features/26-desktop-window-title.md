@@ -25,10 +25,10 @@ README.md * — Markdown Editor
 
 ## Acceptance Criteria
 
-- [ ] Le titre affiche le nom du fichier.
-- [ ] `*` apparaît lorsque le document est modifié.
-- [ ] Le titre se met à jour immédiatement.
-- [ ] Le titre reste cohérent après New/Open/Save.
+- [x] Le titre affiche le nom du fichier.
+- [x] `*` apparaît lorsque le document est modifié.
+- [x] Le titre se met à jour immédiatement.
+- [x] Le titre reste cohérent après New/Open/Save.
 
 ## Depends On
 

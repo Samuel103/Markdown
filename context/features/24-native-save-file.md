@@ -15,11 +15,11 @@ Sauvegarder directement sur le système de fichiers.
 
 ## Acceptance Criteria
 
-- [ ] Save modifie le fichier existant.
-- [ ] Save As permet de choisir un nouveau path.
-- [ ] Le nouveau path est conservé.
-- [ ] Les erreurs filesystem sont gérées.
-- [ ] Aucun téléchargement navigateur n'est utilisé en desktop.
+- [x] Save modifie le fichier existant.
+- [x] Save As permet de choisir un nouveau path.
+- [x] Le nouveau path est conservé.
+- [x] Les erreurs filesystem sont gérées.
+- [x] Aucun téléchargement navigateur n'est utilisé en desktop.
 
 ## Depends On
 

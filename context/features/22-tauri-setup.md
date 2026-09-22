@@ -17,10 +17,10 @@ Transformer l'application web en application desktop.
 
 ## Acceptance Criteria
 
-- [ ] Tauri démarre l'application.
-- [ ] Toutes les fonctionnalités web fonctionnent encore.
-- [ ] Un build desktop peut être généré.
-- [ ] Le code React n'est pas dupliqué.
+- [x] Tauri démarre l'application.
+- [x] Toutes les fonctionnalités web fonctionnent encore.
+- [x] Un build desktop peut être généré.
+- [x] Le code React n'est pas dupliqué.
 
 ## Depends On
 
