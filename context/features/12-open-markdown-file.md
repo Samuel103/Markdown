@@ -16,11 +16,11 @@ Ouvrir un fichier Markdown depuis le navigateur.
 
 ## Acceptance Criteria
 
-- [ ] L'utilisateur peut choisir un fichier `.md`.
-- [ ] Le contenu apparaît dans l'éditeur.
-- [ ] La preview se met à jour.
-- [ ] Le nom du fichier est conservé.
-- [ ] `isDirty` est `false` après ouverture.
+- [x] L'utilisateur peut choisir un fichier `.md`.
+- [x] Le contenu apparaît dans l'éditeur.
+- [x] La preview se met à jour.
+- [x] Le nom du fichier est conservé.
+- [x] `isDirty` est `false` après ouverture.
 
 ## Depends On
 
