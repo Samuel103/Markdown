@@ -22,11 +22,11 @@ type Theme = 'light' | 'dark'
 
 ## Acceptance Criteria
 
-- [ ] Le bouton de thème fonctionne.
-- [ ] Toute l'interface passe en dark mode.
-- [ ] CodeMirror est lisible en dark mode.
-- [ ] La preview est lisible en dark mode.
-- [ ] Aucun texte ne devient illisible.
+- [x] Le bouton de thème fonctionne.
+- [x] Toute l'interface passe en dark mode.
+- [x] CodeMirror est lisible en dark mode.
+- [x] La preview est lisible en dark mode.
+- [x] Aucun texte ne devient illisible.
 
 ## Depends On
 

@@ -1,9 +1,21 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
 :root {
   --editor-surface: #ffffff;
   --editor-text: #1e293b;
   --editor-muted-text: #64748b;
+  --inline-code-surface: #e2e8f0;
+  --inline-code-text: #334155;
+}
+
+[data-theme='dark'] {
+  --editor-surface: #0f172a;
+  --editor-text: #e2e8f0;
+  --editor-muted-text: #94a3b8;
+  --inline-code-surface: #1e293b;
+  --inline-code-text: #e2e8f0;
 }
 
 body {
@@ -29,6 +41,10 @@ body,
 
 .markdown-editor .cm-editor.cm-focused {
   outline: none;
+}
+
+.markdown-editor .cm-cursor {
+  border-left-color: var(--editor-text);
 }
 
 .markdown-editor .cm-scroller {
@@ -57,9 +73,9 @@ body,
 
 .markdown-preview-content :not(pre) > code {
   border-radius: 0.25rem;
-  background: #e2e8f0;
+  background: var(--inline-code-surface);
   padding: 0.125rem 0.25rem;
-  color: #334155;
+  color: var(--inline-code-text);
 }
 
 .markdown-preview-content pre code {

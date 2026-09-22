@@ -19,10 +19,10 @@ markdown-editor-theme
 
 ## Acceptance Criteria
 
-- [ ] Le thème survit à un refresh.
-- [ ] Le thème survit à une nouvelle session.
-- [ ] La préférence système est utilisée par défaut.
-- [ ] Une préférence utilisateur explicite est prioritaire.
+- [x] Le thème survit à un refresh.
+- [x] Le thème survit à une nouvelle session.
+- [x] La préférence système est utilisée par défaut.
+- [x] Une préférence utilisateur explicite est prioritaire.
 
 ## Depends On
 
