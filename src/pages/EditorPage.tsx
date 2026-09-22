@@ -150,6 +150,8 @@ function EditorPage() {
     handleSaveDocument(fileName)
   }
 
+  function handleToggleTheme() {}
+
   async function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
     const [file] = event.target.files ?? []
     event.target.value = ''
@@ -176,6 +178,7 @@ function EditorPage() {
         onOpen={handleOpenDocument}
         onSave={handleSaveDocument}
         onSaveAs={handleSaveAs}
+        onToggleTheme={handleToggleTheme}
       />
       <input ref={fileInputRef} type="file" accept=".md,.markdown" onChange={handleFileChange} className="hidden" />
       <main className="grid min-h-0 flex-1 grid-cols-2">

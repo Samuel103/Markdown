@@ -37,10 +37,10 @@ type ToolbarProps = {
 
 ## Acceptance Criteria
 
-- [ ] Tous les boutons nécessaires existent.
-- [ ] Le nom du fichier est affiché.
-- [ ] L'état dirty est visible.
-- [ ] La toolbar ne contient pas la logique d'accès fichier.
+- [x] Tous les boutons nécessaires existent.
+- [x] Le nom du fichier est affiché.
+- [x] L'état dirty est visible.
+- [x] La toolbar ne contient pas la logique d'accès fichier.
 
 ## Depends On
 
