@@ -23,10 +23,10 @@ Permettre de contrôler les principales actions au clavier.
 
 ## Acceptance Criteria
 
-- [ ] Les shortcuts fonctionnent sur macOS.
-- [ ] Les shortcuts fonctionnent sur Windows/Linux.
-- [ ] Save n'ouvre pas le dialog HTML du navigateur.
-- [ ] Les event listeners sont nettoyés.
+- [x] Les shortcuts fonctionnent sur macOS.
+- [x] Les shortcuts fonctionnent sur Windows/Linux.
+- [x] Save n'ouvre pas le dialog HTML du navigateur.
+- [x] Les event listeners sont nettoyés.
 
 ## Depends On
 

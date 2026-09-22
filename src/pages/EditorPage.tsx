@@ -3,6 +3,7 @@ import type { ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import MarkdownEditor from '../components/editor/MarkdownEditor'
 import MarkdownPreview from '../components/preview/MarkdownPreview'
 import Toolbar from '../components/toolbar/Toolbar'
+import useKeyboardShortcuts from '../hooks/useKeyboardShortcuts'
 import type { MarkdownDocument } from '../types/document'
 
 type Theme = 'light' | 'dark'
@@ -203,6 +204,16 @@ function EditorPage() {
       isDirty: false,
     })
   }
+
+  useKeyboardShortcuts(
+    {
+      onNew: handleNewDocument,
+      onOpen: handleOpenDocument,
+      onSave: handleSaveDocument,
+      onSaveAs: handleSaveAs,
+    },
+    !pendingAction,
+  )
 
   return (
     <div className="flex h-screen flex-col bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100" data-theme={theme}>
