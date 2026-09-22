@@ -24,10 +24,10 @@ Permettre de créer un nouveau document Markdown vide.
 
 ## Acceptance Criteria
 
-- [ ] New vide l'éditeur.
-- [ ] Le nom devient `untitled.md`.
-- [ ] La preview est vidée.
-- [ ] `isDirty` revient à `false`.
+- [x] New vide l'éditeur.
+- [x] Le nom devient `untitled.md`.
+- [x] La preview est vidée.
+- [x] `isDirty` revient à `false`.
 
 ## Depends On
 

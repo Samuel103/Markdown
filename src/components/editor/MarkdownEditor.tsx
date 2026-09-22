@@ -1,12 +1,16 @@
-import CodeMirror from '@uiw/react-codemirror'
+import CodeMirror, { type ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import { markdown } from '@codemirror/lang-markdown'
+import { forwardRef } from 'react'
 
 type MarkdownEditorProps = {
   value: string
   onChange: (value: string) => void
 }
 
-function MarkdownEditor({ value, onChange }: MarkdownEditorProps) {
+const MarkdownEditor = forwardRef<ReactCodeMirrorRef, MarkdownEditorProps>(function MarkdownEditor(
+  { value, onChange },
+  ref,
+) {
   return (
     <section
       aria-labelledby="editor-heading"
@@ -16,6 +20,7 @@ function MarkdownEditor({ value, onChange }: MarkdownEditorProps) {
         Editor
       </h2>
       <CodeMirror
+        ref={ref}
         value={value}
         height="100%"
         extensions={[markdown()]}
@@ -31,6 +36,6 @@ function MarkdownEditor({ value, onChange }: MarkdownEditorProps) {
       />
     </section>
   )
-}
+})
 
 export default MarkdownEditor

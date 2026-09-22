@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import type { ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import MarkdownEditor from '../components/editor/MarkdownEditor'
 import MarkdownPreview from '../components/preview/MarkdownPreview'
 import Toolbar from '../components/toolbar/Toolbar'
@@ -10,6 +11,7 @@ function EditorPage() {
     content: '# Bonjour',
     isDirty: false,
   })
+  const editorRef = useRef<ReactCodeMirrorRef>(null)
 
   function handleContentChange(content: string) {
     setCurrentDocument((document) => ({
@@ -19,11 +21,20 @@ function EditorPage() {
     }))
   }
 
+  function handleNewDocument() {
+    setCurrentDocument({
+      fileName: 'untitled.md',
+      content: '',
+      isDirty: false,
+    })
+    requestAnimationFrame(() => editorRef.current?.view?.focus())
+  }
+
   return (
     <div className="flex h-screen flex-col bg-slate-100">
-      <Toolbar />
+      <Toolbar onNew={handleNewDocument} />
       <main className="grid min-h-0 flex-1 grid-cols-2">
-        <MarkdownEditor value={currentDocument.content} onChange={handleContentChange} />
+        <MarkdownEditor ref={editorRef} value={currentDocument.content} onChange={handleContentChange} />
         <MarkdownPreview markdown={currentDocument.content} />
       </main>
     </div>
