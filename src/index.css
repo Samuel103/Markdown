@@ -50,3 +50,20 @@ body,
   background: transparent;
   color: var(--editor-muted-text);
 }
+
+.markdown-preview-content {
+  scrollbar-gutter: stable;
+}
+
+.markdown-preview-content :not(pre) > code {
+  border-radius: 0.25rem;
+  background: #e2e8f0;
+  padding: 0.125rem 0.25rem;
+  color: #334155;
+}
+
+.markdown-preview-content pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}

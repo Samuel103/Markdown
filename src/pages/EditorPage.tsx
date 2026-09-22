@@ -7,7 +7,7 @@ function EditorPage() {
   const [markdown, setMarkdown] = useState('# Bonjour')
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-100">
+    <div className="flex h-screen flex-col bg-slate-100">
       <Toolbar />
       <main className="grid min-h-0 flex-1 grid-cols-2">
         <MarkdownEditor value={markdown} onChange={setMarkdown} />

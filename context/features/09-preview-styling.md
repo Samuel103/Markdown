@@ -30,11 +30,11 @@ Ajouter :
 
 ## Acceptance Criteria
 
-- [ ] Les titres ont une hiérarchie visuelle claire.
-- [ ] Les blocs de code sont faciles à distinguer.
-- [ ] Les tableaux sont lisibles.
-- [ ] Les liens sont visibles.
-- [ ] La preview possède son propre scroll.
+- [x] Les titres ont une hiérarchie visuelle claire.
+- [x] Les blocs de code sont faciles à distinguer.
+- [x] Les tableaux sont lisibles.
+- [x] Les liens sont visibles.
+- [x] La preview possède son propre scroll.
 
 ## Depends On
 
