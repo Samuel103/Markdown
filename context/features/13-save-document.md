@@ -16,11 +16,11 @@ Permettre de sauvegarder le document courant sous forme de fichier Markdown tél
 
 ## Acceptance Criteria
 
-- [ ] Save télécharge un fichier `.md`.
-- [ ] Le contenu est correct.
-- [ ] Le nom du fichier est correct.
-- [ ] Aucun object URL ne reste inutilement actif.
-- [ ] `isDirty` devient `false`.
+- [x] Save télécharge un fichier `.md`.
+- [x] Le contenu est correct.
+- [x] Le nom du fichier est correct.
+- [x] Aucun object URL ne reste inutilement actif.
+- [x] `isDirty` devient `false`.
 
 ## Depends On
 

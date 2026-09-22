@@ -35,6 +35,24 @@ function EditorPage() {
     fileInputRef.current?.click()
   }
 
+  function handleSaveDocument() {
+    const blob = new Blob([currentDocument.content], { type: 'text/markdown' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+
+    link.href = url
+    link.download = currentDocument.fileName
+    document.body.append(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
+
+    setCurrentDocument((document) => ({
+      ...document,
+      isDirty: false,
+    }))
+  }
+
   async function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
     const [file] = event.target.files ?? []
     event.target.value = ''
@@ -54,7 +72,7 @@ function EditorPage() {
 
   return (
     <div className="flex h-screen flex-col bg-slate-100">
-      <Toolbar onNew={handleNewDocument} onOpen={handleOpenDocument} />
+      <Toolbar onNew={handleNewDocument} onOpen={handleOpenDocument} onSave={handleSaveDocument} />
       <input ref={fileInputRef} type="file" accept=".md,.markdown" onChange={handleFileChange} className="hidden" />
       <main className="grid min-h-0 flex-1 grid-cols-2">
         <MarkdownEditor ref={editorRef} value={currentDocument.content} onChange={handleContentChange} />

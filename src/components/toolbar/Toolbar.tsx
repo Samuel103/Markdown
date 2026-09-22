@@ -1,9 +1,10 @@
 type ToolbarProps = {
   onNew: () => void
   onOpen: () => void
+  onSave: () => void
 }
 
-function Toolbar({ onNew, onOpen }: ToolbarProps) {
+function Toolbar({ onNew, onOpen, onSave }: ToolbarProps) {
   return (
     <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
       <h1 className="text-lg font-semibold text-slate-900">Markdown Editor</h1>
@@ -21,6 +22,13 @@ function Toolbar({ onNew, onOpen }: ToolbarProps) {
           className="rounded-md bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
         >
           Open
+        </button>
+        <button
+          type="button"
+          onClick={onSave}
+          className="rounded-md bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+        >
+          Save
         </button>
       </div>
     </header>
