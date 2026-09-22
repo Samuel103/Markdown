@@ -20,10 +20,10 @@ Afficher des informations simples sur le document.
 
 ## Acceptance Criteria
 
-- [ ] Le nombre de caractères est correct.
-- [ ] Le nombre de mots se met à jour.
-- [ ] La status bar n'occupe pas trop d'espace.
-- [ ] Les calculs n'impactent pas la saisie.
+- [x] Le nombre de caractères est correct.
+- [x] Le nombre de mots se met à jour.
+- [x] La status bar n'occupe pas trop d'espace.
+- [x] Les calculs n'impactent pas la saisie.
 
 ## Depends On
 

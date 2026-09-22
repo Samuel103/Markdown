@@ -2,6 +2,7 @@ import { type ChangeEvent, useEffect, useRef, useState } from 'react'
 import type { ReactCodeMirrorRef } from '@uiw/react-codemirror'
 import MarkdownEditor from '../components/editor/MarkdownEditor'
 import MarkdownPreview from '../components/preview/MarkdownPreview'
+import StatusBar from '../components/status-bar/StatusBar'
 import Toolbar from '../components/toolbar/Toolbar'
 import useKeyboardShortcuts from '../hooks/useKeyboardShortcuts'
 import type { MarkdownDocument } from '../types/document'
@@ -268,6 +269,7 @@ function EditorPage() {
         />
         <MarkdownPreview markdown={currentDocument.content} theme={theme} isActive={activePane === 'preview'} />
       </main>
+      <StatusBar content={currentDocument.content} />
       {pendingAction && (
         <div className="fixed inset-0 flex items-center justify-center bg-slate-950/40 p-4" role="presentation">
           <div
