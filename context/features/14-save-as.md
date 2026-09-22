@@ -16,10 +16,10 @@ Permettre de sauvegarder le document sous un nouveau nom.
 
 ## Acceptance Criteria
 
-- [ ] L'utilisateur peut choisir un nouveau nom.
-- [ ] `.md` est ajouté automatiquement.
-- [ ] Le nouveau nom est conservé dans le document.
-- [ ] Le téléchargement utilise le nouveau nom.
+- [x] L'utilisateur peut choisir un nouveau nom.
+- [x] `.md` est ajouté automatiquement.
+- [x] Le nouveau nom est conservé dans le document.
+- [x] Le téléchargement utilise le nouveau nom.
 
 ## Depends On
 
