@@ -19,11 +19,11 @@
 
 ## Acceptance Criteria
 
-- [ ] Une modification marque le document comme dirty.
-- [ ] Un indicateur visuel apparaît.
-- [ ] New n'écrase pas silencieusement un document modifié.
-- [ ] Open n'écrase pas silencieusement un document modifié.
-- [ ] Le navigateur avertit lors d'une fermeture/reload.
+- [x] Une modification marque le document comme dirty.
+- [x] Un indicateur visuel apparaît.
+- [x] New n'écrase pas silencieusement un document modifié.
+- [x] Open n'écrase pas silencieusement un document modifié.
+- [x] Le navigateur avertit lors d'une fermeture/reload.
 
 ## Depends On
 

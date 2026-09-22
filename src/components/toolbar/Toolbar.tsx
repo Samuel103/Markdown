@@ -1,14 +1,18 @@
 type ToolbarProps = {
+  fileName: string
+  isDirty: boolean
   onNew: () => void
   onOpen: () => void
   onSave: () => void
   onSaveAs: () => void
 }
 
-function Toolbar({ onNew, onOpen, onSave, onSaveAs }: ToolbarProps) {
+function Toolbar({ fileName, isDirty, onNew, onOpen, onSave, onSaveAs }: ToolbarProps) {
   return (
     <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
-      <h1 className="text-lg font-semibold text-slate-900">Markdown Editor</h1>
+      <h1 className="text-lg font-semibold text-slate-900">
+        Markdown Editor <span aria-label={isDirty ? `${fileName}, unsaved changes` : fileName}>{fileName}{isDirty && <span aria-hidden="true">*</span>}</span>
+      </h1>
       <div className="flex gap-2">
         <button
           type="button"
