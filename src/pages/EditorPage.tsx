@@ -8,7 +8,7 @@ import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs'
 import MarkdownEditor from '../components/editor/MarkdownEditor'
 import MarkdownPreview from '../components/preview/MarkdownPreview'
 import StatusBar from '../components/status-bar/StatusBar'
-import Toolbar from '../components/toolbar/Toolbar'
+import Toolbar, { type FormattingAction } from '../components/toolbar/Toolbar'
 import useKeyboardShortcuts from '../hooks/useKeyboardShortcuts'
 import type { MarkdownDocument } from '../types/document'
 
@@ -18,6 +18,93 @@ type ActivePane = 'editor' | 'preview'
 const themeStorageKey = 'markdown-editor-theme'
 const markdownFileFilter = [{ name: 'Markdown', extensions: ['md', 'markdown'] }]
 const applicationTitle = 'Markdown Editor'
+
+type FormattingReplacement = {
+  content: string
+  selectionStart: number
+  selectionEnd: number
+}
+
+function withSelectedText(prefix: string, suffix: string, selectedText: string, placeholder: string): FormattingReplacement {
+  const text = selectedText || placeholder
+
+  return {
+    content: `${prefix}${text}${suffix}`,
+    selectionStart: prefix.length,
+    selectionEnd: prefix.length + text.length,
+  }
+}
+
+function withPrefixedLines(prefix: string, selectedText: string, placeholder: string): FormattingReplacement {
+  const content = (selectedText || placeholder)
+    .split('\n')
+    .map((line, index) => `${prefix === '1. ' ? `${index + 1}. ` : prefix}${line}`)
+    .join('\n')
+
+  return { content, selectionStart: 0, selectionEnd: content.length }
+}
+
+function asBlock(replacement: FormattingReplacement): FormattingReplacement {
+  return {
+    content: `\n${replacement.content}\n`,
+    selectionStart: replacement.selectionStart + 1,
+    selectionEnd: replacement.selectionEnd + 1,
+  }
+}
+
+function createFormattingReplacement(action: FormattingAction, selectedText: string): FormattingReplacement {
+  switch (action) {
+    case 'heading':
+      return asBlock(withSelectedText('# ', '', selectedText, 'Heading'))
+    case 'bold':
+      return withSelectedText('**', '**', selectedText, 'bold text')
+    case 'italic':
+      return withSelectedText('*', '*', selectedText, 'italic text')
+    case 'strikethrough':
+      return withSelectedText('~~', '~~', selectedText, 'strikethrough text')
+    case 'link': {
+      const text = selectedText || 'link text'
+      const url = 'https://example.com'
+
+      return {
+        content: `[${text}](${url})`,
+        selectionStart: text.length + 3,
+        selectionEnd: text.length + 3 + url.length,
+      }
+    }
+    case 'image': {
+      const altText = selectedText || 'image description'
+      const url = 'https://example.com/image.png'
+
+      return {
+        content: `![${altText}](${url})`,
+        selectionStart: altText.length + 4,
+        selectionEnd: altText.length + 4 + url.length,
+      }
+    }
+    case 'blockquote':
+      return asBlock(withPrefixedLines('> ', selectedText, 'Quote'))
+    case 'inlineCode':
+      return withSelectedText('`', '`', selectedText, 'code')
+    case 'codeBlock':
+      return asBlock(withSelectedText('```\n', '\n```', selectedText, 'code'))
+    case 'bulletList':
+      return asBlock(withPrefixedLines('- ', selectedText, 'List item'))
+    case 'numberedList':
+      return asBlock(withPrefixedLines('1. ', selectedText, 'List item'))
+    case 'taskList':
+      return asBlock(withPrefixedLines('- [ ] ', selectedText, 'Task'))
+    case 'horizontalRule':
+      return asBlock({ content: '---', selectionStart: 3, selectionEnd: 3 })
+    case 'table': {
+      const cell = selectedText || 'Cell 1'
+      const content = `| Column 1 | Column 2 |\n| --- | --- |\n| ${cell} | Cell 2 |`
+      const selectionStart = content.indexOf(cell)
+
+      return asBlock({ content, selectionStart, selectionEnd: selectionStart + cell.length })
+    }
+  }
+}
 
 function getStoredTheme(): Theme | null {
   const storedTheme = window.localStorage.getItem(themeStorageKey)
@@ -295,6 +382,28 @@ function EditorPage() {
     })
   }
 
+  function handleFormat(action: FormattingAction) {
+    const view = editorRef.current?.view
+
+    if (!view) {
+      return
+    }
+
+    const selection = view.state.selection.main
+    const selectedText = view.state.sliceDoc(selection.from, selection.to)
+    const replacement = createFormattingReplacement(action, selectedText)
+    const selectionStart = selection.from + replacement.selectionStart
+
+    view.dispatch({
+      changes: { from: selection.from, to: selection.to, insert: replacement.content },
+      selection: {
+        anchor: selectionStart,
+        head: selection.from + replacement.selectionEnd,
+      },
+    })
+    view.focus()
+  }
+
   async function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
     const [file] = event.target.files ?? []
     event.target.value = ''
@@ -336,6 +445,7 @@ function EditorPage() {
         onSave={handleSaveDocument}
         onSaveAs={handleSaveAs}
         onToggleTheme={handleToggleTheme}
+        onFormat={handleFormat}
         theme={theme}
       />
       <input ref={fileInputRef} type="file" accept=".md,.markdown" onChange={handleFileChange} className="hidden" />
