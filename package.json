@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:release": "npm run tauri build -- --bundles app && node scripts/collect-release.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "tauri": "tauri"
