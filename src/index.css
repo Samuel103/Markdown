@@ -83,3 +83,70 @@ body,
   padding: 0;
   color: inherit;
 }
+
+.markdown-preview-content .markdown-alert-note {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.markdown-preview-content .markdown-alert-tip {
+  border-color: #059669;
+  background: #ecfdf5;
+}
+
+.markdown-preview-content .markdown-alert-important {
+  border-color: #7c3aed;
+  background: #f5f3ff;
+}
+
+.markdown-preview-content .markdown-alert-warning {
+  border-color: #d97706;
+  background: #fffbeb;
+}
+
+.markdown-preview-content .markdown-alert-caution {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+[data-theme='dark'] .markdown-preview-content .markdown-alert-note {
+  background: #172554;
+}
+
+[data-theme='dark'] .markdown-preview-content .markdown-alert-tip {
+  background: #022c22;
+}
+
+[data-theme='dark'] .markdown-preview-content .markdown-alert-important {
+  background: #2e1065;
+}
+
+[data-theme='dark'] .markdown-preview-content .markdown-alert-warning {
+  background: #451a03;
+}
+
+[data-theme='dark'] .markdown-preview-content .markdown-alert-caution {
+  background: #450a0a;
+}
+
+.markdown-preview-content pre .hljs-keyword,
+.markdown-preview-content pre .hljs-selector-tag,
+.markdown-preview-content pre .hljs-literal {
+  color: #c084fc;
+}
+
+.markdown-preview-content pre .hljs-string,
+.markdown-preview-content pre .hljs-attr,
+.markdown-preview-content pre .hljs-template-variable {
+  color: #86efac;
+}
+
+.markdown-preview-content pre .hljs-number,
+.markdown-preview-content pre .hljs-built_in,
+.markdown-preview-content pre .hljs-title.function_ {
+  color: #fcd34d;
+}
+
+.markdown-preview-content pre .hljs-comment {
+  color: #94a3b8;
+}
