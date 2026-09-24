@@ -1,4 +1,0 @@
-interface:
-  display_name: "Bug"
-  short_description: "Diagnose, fix, or finalize a bug"
-  default_prompt: "Use $bug investigate <description> to diagnose a bug, or $bug end to review and finalize the current bugfix."

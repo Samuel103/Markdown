@@ -5,6 +5,7 @@ import { basename } from '@tauri-apps/api/path'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { open, save } from '@tauri-apps/plugin-dialog'
 import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs'
+import OllamaAssistant from '../components/assistant/OllamaAssistant'
 import MarkdownEditor from '../components/editor/MarkdownEditor'
 import MarkdownPreview from '../components/preview/MarkdownPreview'
 import StatusBar from '../components/status-bar/StatusBar'
@@ -13,7 +14,8 @@ import useKeyboardShortcuts from '../hooks/useKeyboardShortcuts'
 import type { MarkdownDocument } from '../types/document'
 
 type Theme = 'light' | 'dark'
-type ActivePane = 'editor' | 'preview'
+type ActivePane = 'workspace' | 'preview'
+type PrimaryPane = 'editor' | 'assistant'
 
 const themeStorageKey = 'markdown-editor-theme'
 const markdownFileFilter = [{ name: 'Markdown', extensions: ['md', 'markdown'] }]
@@ -128,7 +130,8 @@ function EditorPage() {
   const discardButtonRef = useRef<HTMLButtonElement>(null)
   const [pendingAction, setPendingAction] = useState<'new' | 'open' | null>(null)
   const [theme, setTheme] = useState<Theme>(() => getStoredTheme() ?? getSystemTheme())
-  const [activePane, setActivePane] = useState<ActivePane>('editor')
+  const [activePane, setActivePane] = useState<ActivePane>('workspace')
+  const [primaryPane, setPrimaryPane] = useState<PrimaryPane>('editor')
   const [fileError, setFileError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -455,18 +458,36 @@ function EditorPage() {
         </p>
       )}
       <div className="border-b border-slate-200 bg-white px-4 py-2 dark:border-slate-800 dark:bg-slate-900 md:hidden" role="group" aria-label="Visible pane">
-        <div className="grid grid-cols-2 rounded-md bg-slate-100 p-1 dark:bg-slate-800">
+        <div className="grid grid-cols-3 rounded-md bg-slate-100 p-1 dark:bg-slate-800">
           <button
             type="button"
-            aria-pressed={activePane === 'editor'}
-            onClick={() => setActivePane('editor')}
+            aria-pressed={activePane === 'workspace' && primaryPane === 'editor'}
+            onClick={() => {
+              setPrimaryPane('editor')
+              setActivePane('workspace')
+            }}
             className={`rounded px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${
-              activePane === 'editor'
+              activePane === 'workspace' && primaryPane === 'editor'
                 ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
                 : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100'
             }`}
           >
             Editor
+          </button>
+          <button
+            type="button"
+            aria-pressed={activePane === 'workspace' && primaryPane === 'assistant'}
+            onClick={() => {
+              setPrimaryPane('assistant')
+              setActivePane('workspace')
+            }}
+            className={`rounded px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${
+              activePane === 'workspace' && primaryPane === 'assistant'
+                ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+                : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100'
+            }`}
+          >
+            AI assistant
           </button>
           <button
             type="button"
@@ -482,14 +503,51 @@ function EditorPage() {
           </button>
         </div>
       </div>
+      <div className="hidden border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 md:grid md:grid-cols-2">
+        <div className="border-r border-slate-200 px-6 py-2 dark:border-slate-800" role="group" aria-label="Left pane">
+          <div className="grid grid-cols-2 rounded-md bg-slate-100 p-1 dark:bg-slate-800">
+            <button
+              type="button"
+              aria-pressed={primaryPane === 'editor'}
+              onClick={() => setPrimaryPane('editor')}
+              className={`rounded px-3 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${
+                primaryPane === 'editor'
+                  ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100'
+              }`}
+            >
+              Editor
+            </button>
+            <button
+              type="button"
+              aria-pressed={primaryPane === 'assistant'}
+              onClick={() => setPrimaryPane('assistant')}
+              className={`rounded px-3 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${
+                primaryPane === 'assistant'
+                  ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100'
+              }`}
+            >
+              AI assistant
+            </button>
+          </div>
+        </div>
+      </div>
       <main className="grid min-h-0 flex-1 overflow-hidden md:grid-cols-2">
-        <MarkdownEditor
-          ref={editorRef}
-          value={currentDocument.content}
-          onChange={handleContentChange}
-          theme={theme}
-          isActive={activePane === 'editor'}
-        />
+        <div className={`${activePane === 'workspace' ? 'contents' : 'hidden'} md:contents`}>
+          <MarkdownEditor
+            ref={editorRef}
+            value={currentDocument.content}
+            onChange={handleContentChange}
+            theme={theme}
+            isActive={primaryPane === 'editor'}
+          />
+          <OllamaAssistant
+            markdown={currentDocument.content}
+            onApply={handleContentChange}
+            isActive={primaryPane === 'assistant'}
+          />
+        </div>
         <MarkdownPreview markdown={currentDocument.content} theme={theme} isActive={activePane === 'preview'} />
       </main>
       <StatusBar content={currentDocument.content} />

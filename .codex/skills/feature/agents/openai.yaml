@@ -1,6 +1,0 @@
-interface:
-  display_name: "feature"
-  short_description: "Plan, implement, or finish a feature"
-  default_prompt: "Use $feature load <feature-markdown-file> to capture and plan a feature."
-policy:
-  allow_implicit_invocation: false

@@ -16,7 +16,7 @@ const MarkdownEditor = forwardRef<ReactCodeMirrorRef, MarkdownEditorProps>(funct
   return (
     <section
       aria-labelledby="editor-heading"
-      className={`${isActive ? 'flex' : 'hidden'} min-h-0 min-w-0 flex-col bg-white p-4 dark:bg-slate-900 md:flex md:border-r md:border-slate-200 md:p-6 md:dark:border-slate-800`}
+      className={`${isActive ? 'flex' : 'hidden'} min-h-0 min-w-0 flex-col bg-white p-4 dark:bg-slate-900 md:p-6`}
     >
       <h2 id="editor-heading" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
         Editor
